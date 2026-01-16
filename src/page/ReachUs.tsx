@@ -14,10 +14,11 @@ import ReachUsNavbar from "../components/ReachUsNavbar";
 gsap.registerPlugin(ScrollTrigger);
 
 const ReachUs: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const mapPinRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const mapPinRef = useRef<HTMLDivElement | null>(null);
   const iconsRef = useRef<HTMLAnchorElement[]>([]);
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -45,7 +46,7 @@ const ReachUs: React.FC = () => {
         ease: "power3.out",
       });
 
-      /* 🔥 ICON PULSE / GLOW */
+      /* ICON PULSE */
       iconsRef.current.forEach((icon) => {
         gsap.to(icon, {
           scale: 1.1,
@@ -57,7 +58,7 @@ const ReachUs: React.FC = () => {
         });
       });
 
-      /* 🔥 MAP PIN BOUNCE */
+      /* MAP PIN BOUNCE */
       if (mapPinRef.current) {
         gsap.to(mapPinRef.current, {
           y: -12,
@@ -72,13 +73,14 @@ const ReachUs: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  /* 📱 TAP FEEDBACK */
+  /* TAP FEEDBACK */
   const tapDown = (el: HTMLElement) =>
     gsap.to(el, { scale: 0.94, duration: 0.1 });
-  const tapUp = (el: HTMLElement) => gsap.to(el, { scale: 1, duration: 0.15 });
+  const tapUp = (el: HTMLElement) =>
+    gsap.to(el, { scale: 1, duration: 0.15 });
 
-  /* ✉️ EMAIL SUBMIT */
-  const handleSubmit = (e: React.FormEvent) => {
+  /* EMAIL SUBMIT */
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formRef.current) return;
 
@@ -107,6 +109,7 @@ const ReachUs: React.FC = () => {
   return (
     <>
       <ReachUsNavbar />
+
       <section ref={sectionRef} className="min-h-screen py-24 bg-gray-50">
         <div className="container mx-auto px-6 max-w-6xl">
           {/* HEADER */}
@@ -141,7 +144,11 @@ const ReachUs: React.FC = () => {
               <a
                 key={i}
                 href={item.href}
-                ref={(el) => el && (iconsRef.current[i] = el)}
+                ref={(el) => {
+                  if (el) {
+                    iconsRef.current[i] = el;
+                  }
+                }}
                 onTouchStart={(e) => tapDown(e.currentTarget)}
                 onTouchEnd={(e) => tapUp(e.currentTarget)}
                 className="flex items-center gap-2 bg-green-800 text-white px-6 py-3 rounded-lg"
@@ -151,8 +158,9 @@ const ReachUs: React.FC = () => {
             ))}
           </div>
 
-          {/* FORM */}
+          {/* CONTENT */}
           <div className="grid md:grid-cols-2 gap-12 mb-20">
+            {/* FORM */}
             <div className="bg-white rounded-xl shadow-md p-8 reveal">
               <h2 className="text-2xl font-bold text-green-800 mb-6">
                 Send Us a Message
@@ -168,7 +176,9 @@ const ReachUs: React.FC = () => {
                     <input
                       key={field}
                       name={field}
-                      placeholder={field === "name" ? "Full Name" : "Email"}
+                      placeholder={
+                        field === "name" ? "Full Name" : "Email"
+                      }
                       className="w-full border rounded-lg px-4 py-3 transition focus:ring-2 focus:ring-green-700 focus:scale-[1.02]"
                       required
                     />
