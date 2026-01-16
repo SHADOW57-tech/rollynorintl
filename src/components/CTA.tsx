@@ -51,7 +51,7 @@ const CTA: React.FC = () => {
           </Link>
 
           <Link
-            to="/services"
+            to="#services"
             className="border border-white px-8 py-3 rounded-lg hover:bg-white hover:text-green-800 transition"
           >
             View Services

@@ -13,7 +13,9 @@ const Services: React.FC = () => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      /* Scroll reveal */
+      /* --------------------------------------------
+         Scroll reveal animation
+      --------------------------------------------- */
       gsap.from(".service-card", {
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -26,39 +28,74 @@ const Services: React.FC = () => {
         ease: "power3.out",
       });
 
-      /* Hover animations */
+      /* --------------------------------------------
+         Hover animations (desktop only)
+      --------------------------------------------- */
       const cards = gsap.utils.toArray<HTMLElement>(".service-card");
 
       cards.forEach((card) => {
-        const button = card.querySelector(".learn-more");
+        // Disable hover animations on touch devices
+        if (window.matchMedia("(hover: none)").matches) return;
 
-        // Initial state
+        const button = card.querySelector(".learn-more");
+        const image = card.querySelector(".service-image");
+        const overlay = card.querySelector(".service-overlay");
+
+        // Initial states
+        gsap.set(card, { y: 0, scale: 1 });
         gsap.set(button, {
           opacity: 0,
           y: 20,
           pointerEvents: "none",
         });
+        gsap.set(image, { scale: 1 });
+        gsap.set(overlay, { opacity: 0 });
 
         const hoverTl = gsap.timeline({ paused: true });
 
         hoverTl
+          // Card lift
           .to(card, {
             y: -10,
             scale: 1.03,
             boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-            duration: 0.5,
+            duration: 0.4,
             ease: "power2.out",
           })
+
+          // Image zoom
+          .to(
+            image,
+            {
+              scale: 1.08,
+              duration: 0.6,
+              ease: "power2.out",
+            },
+            "<"
+          )
+
+          // Overlay fade
+          .to(
+            overlay,
+            {
+              opacity: 1,
+              duration: 0.4,
+              ease: "power2.out",
+            },
+            "<"
+          )
+
+          // Button reveal
           .to(
             button,
             {
               opacity: 1,
               y: 0,
               pointerEvents: "auto",
-              duration: 0.5,
+              duration: 0.4,
               ease: "power2.out",
             },
-            "-=0.15"
+            "-=0.2"
           );
 
         card.addEventListener("mouseenter", () => hoverTl.play());
@@ -82,25 +119,32 @@ const Services: React.FC = () => {
               key={index}
               className="service-card bg-white p-6 rounded-2xl shadow-lg cursor-pointer"
             >
-              <div className="mb-4">
-  {service.image ? (
-    <img
-      src={service.image}
-      alt={service.title}
-      className="w-full h-60 object-cover rounded-xl"
-    />
-  ) : (
-    <div className="text-4xl">{service.icon}</div>
-  )}
-</div>
+              {/* IMAGE */}
+              <div className="mb-4 overflow-hidden rounded-xl relative">
+                {service.image ? (
+                  <>
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="service-image w-full h-60 object-cover"
+                    />
+                    <div className="service-overlay absolute inset-0 bg-black/30" />
+                  </>
+                ) : (
+                  <div className="text-4xl">{service.icon}</div>
+                )}
+              </div>
 
-              <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-              <p className="text-gray-600">{service.description}</p>
+              <h3 className="text-xl font-semibold mb-2">
+                {service.title}
+              </h3>
 
-              {/* Learn More (hidden until hover) */}
-              <button className="learn-more mt-6 w-full bg-green-900 text-white font-semibold py-2 rounded-xl"
-              
-              >
+              <p className="text-gray-600">
+                {service.description}
+              </p>
+
+              {/* CTA */}
+              <button className="learn-more mt-6 w-full bg-green-900 text-white font-semibold py-2 rounded-xl">
                 <Link to="/reach-us">Learn More</Link>
               </button>
             </div>

@@ -11,6 +11,9 @@ const About: React.FC = () => {
   useEffect(() => {
     if (!aboutRef.current) return;
 
+    // Disable GSAP on small screens
+    if (window.innerWidth < 640) return;
+
     const ctx = gsap.context(() => {
       gsap.from(".about-item", {
         scrollTrigger: {
@@ -29,51 +32,47 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <section ref={aboutRef} className="py-20 bg-white">
-      <h2 className="about-item text-3xl font-bold text-green-800 text-center mb-6">
+    <section ref={aboutRef} className="py-14 md:py-20 bg-white">
+      <h2 className="about-item text-2xl md:text-3xl font-bold text-green-800 text-center mb-6">
         About Us
       </h2>
-      <div className="container mx-auto px-6  gap-12 items-center">
+
+      <div
+        className="
+          container 
+          mx-auto 
+          px-4 
+          md:px-6
+          grid 
+          grid-cols-1 
+          gap-12 
+          items-center
+        "
+      >
+        {/* TEXT */}
         <div>
-          <p className="about-item text-gray-700 text-lg text-center mb-6">
-            Rollynor Intl Gems is a CAC-registered Nigerian company providing
+          <p className="about-item text-gray-700 text-base md:text-lg text-center lg:text-left mb-6">
+            Rollymor hth Gems RC is a CAC-registered Nigerian company providing
             professional services in construction, ICT solutions, farming, and
             general contracting.
           </p>
 
-          <p className="about-item text-gray-600 text-center mb-10">
+          <p className="about-item text-gray-600 text-center lg:text-left mb-8">
             We are committed to delivering quality, reliability, and excellence
             across every project we handle.
           </p>
 
-          <div className="about-item flex justify-center">
-            <div className="bg-green-800 text-white px-6 py-3 rounded-xl shadow-md">
-              CAC Registered • Est. 2023
+          <div className="about-item flex justify-center lg:justify-start">
+            <div className="bg-green-800 text-white px-6 py-3 rounded-xl shadow-md text-sm md:text-base">
+              CAC Registered • Est. 2017
             </div>
           </div>
         </div>
-        {/* Video */}
-<div className="about-item mt-12 flex justify-center max-w-xl items-center mx-auto">
-  {/* <video
-    className=" w-full 
-    max-w-xl 
-    aspect-video 
-    object-cover 
-    rounded-2xl 
-    shadow-2xl max-h-2xl"
-    controls
-    muted
-    playsInline
-    poster="/videos/about-poster.jpg"
-  >
-    <source src="/src/assets/poolvid.mp4" type="video/mp4" />
-    Your browser does not support the video tag. */}
-  {/* </video> */}
-  <VideoCarousel
-   className="max-w-xl"
-  />
-</div>
 
+        {/* VIDEO */}
+        <div className="about-item w-full">
+          <VideoCarousel />
+        </div>
       </div>
     </section>
   );

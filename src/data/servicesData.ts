@@ -1,6 +1,9 @@
-import poolone from "../assets/poolimgone.jpeg";
-import pooltwo from "../assets/poolimgtwo.jpeg";
 import poolthree from "../assets/poolimgthree.jpeg";
+import minegt from "../assets/minegt.png"
+import constimg from "../assets/constimg.png";
+import farmimg from "../assets/farmimg.png"
+import necklace from "../assets/goldnecklace.jpg"
+import ictimg from "../assets/ictimg.jpg"
 
 export interface Service {
   title: string;
@@ -13,12 +16,12 @@ export const services: Service[] = [
   {
     title: "Construction Works",
     description: "Professional building and infrastructure solutions swimming pools construction swervice steel fabrication and installation.",
-    image: poolone,
+    image: constimg,
   },
   {
     title: "Farming & Agriculture",
     description: "Modern and sustainable agricultural services.",
-    image: pooltwo,
+    image: farmimg,
   },
   {
     title: "General Contracting",
@@ -28,16 +31,16 @@ export const services: Service[] = [
   {
     title: "ICT Services",
     description: "Technology solutions for modern businesses.",
-    image: "💻",
+    image: ictimg,
   },
   {
     title: "Jewelry & Accessories",
     description: "Quality jewelry and fashion accessories.",
-    image: "💎",
+    image: necklace,
   },
   {
     title: "mining and quarrying",
     description: "Efficient and safe mining operations.",
-    icon: "⛏️",
+    image: minegt,
   }
 ];

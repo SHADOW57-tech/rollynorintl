@@ -126,7 +126,7 @@ const Navbar: React.FC = () => {
           onClick={() => scrollToSection("#home")}
           className="cursor-pointer text-xl font-bold text-green-800"
         >
-          ROLLYNOR INTL GEMS
+          ROLLYMOR HTH GEMS
         </span>
 
         {/* Desktop Links */}
@@ -154,14 +154,7 @@ const Navbar: React.FC = () => {
             </li>
           ))}
         </ul>
-
-        {/* CTA */}
-        {/* <button
-          onClick={() => scrollToSection("contact")}
-          className="hidden md:block bg-green-800 text-white px-4 py-2 rounded-lg hover:bg-green-900 transition"
-        >
-          Request a Service
-        </button> */}
+       
          <motion.a
                 
                   whileHover={{ scale: 1.08 }}

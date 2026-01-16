@@ -7,6 +7,12 @@ html {
 section {
   scroll-margin-top: 90px; /* height of navbar */
 }
+@media (max-width: 767px) {
+  .video-swiper .swiper-button-next,
+  .video-swiper .swiper-button-prev {
+    display: none;
+  }
+}
 
 
 /* :root {

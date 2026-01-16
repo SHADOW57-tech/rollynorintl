@@ -86,10 +86,10 @@ const ReachUs: React.FC = () => {
 
     emailjs
       .sendForm(
-        "service_2lyrsyj",
-        "template_ovvs7lm",
+        "service_z1iahzl",
+        "template_yi46rdu",
         formRef.current,
-        "Dg7bbdTS4KwhiQ1fq"
+        "78R9y54n59q051Vns"
       )
       .then(() => {
         setSuccess(true);

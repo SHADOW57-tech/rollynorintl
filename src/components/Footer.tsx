@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
         {/* Company */}
         <div className="footer-item">
           <h3 className="text-xl font-bold text-white mb-4">
-            Rollynor Intl Gems
+            Rollymor HTH Gems
           </h3>
           <p className="text-sm text-gray-400">
             A CAC-registered Nigerian company delivering excellence in
@@ -66,10 +66,10 @@ const Footer: React.FC = () => {
             Quick Links
           </h4>
           <ul className="space-y-2 text-sm">
-            <li><Link to="/" className="hover:text-white">Home</Link></li>
-            <li><Link to="/about" className="hover:text-white">About</Link></li>
-            <li><Link to="/services" className="hover:text-white">Services</Link></li>
-            <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
+            <li><Link to="#hero" className="hover:text-white">Home</Link></li>
+            <li><Link to="#about" className="hover:text-white">About</Link></li>
+            <li><Link to="#services" className="hover:text-white">Services</Link></li>
+            <li><Link to="#contact" className="hover:text-white">Contact</Link></li>
           </ul>
         </div>
 
@@ -79,8 +79,8 @@ const Footer: React.FC = () => {
             Contact
           </h4>
           <p className="text-sm">📍 Nigeria</p>
-          <p className="text-sm">📞 +234 XXX XXX XXXX</p>
-          <p className="text-sm">✉ info@rollynorgems.com</p>
+          <a href="+2348120862357" className="text-sm">📞 +2348120862357</a>
+          <a href="rollynorintl@gmail.com" className="text-sm">✉ rollymorhthgems@gmail.com</a>
         </div>
       </div>
 

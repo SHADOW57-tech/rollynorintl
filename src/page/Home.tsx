@@ -6,7 +6,6 @@ import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 import "../index.css";
 import PageWrapper from "../components/PageWrapper";
-// import FloatButton from "../components/FloatButton";
 
 const Home: React.FC = () => {
   return (
@@ -16,7 +15,6 @@ const Home: React.FC = () => {
 
         <section id="hero">
           <Hero />
-          {/* <FloatButton /> */}
         </section>
 
         <section id="about">
