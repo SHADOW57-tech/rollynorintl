@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
-  { name: "Hero", id: "hero" },
+  { name: "Home", id: "hero" },
   { name: "About", id: "about" },
   { name: "Services", id: "services" },
   { name: "Contact", id: "contact" },

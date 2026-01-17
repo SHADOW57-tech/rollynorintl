@@ -1,11 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import type { Swiper as SwiperType } from "swiper";
-
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 const videos = [
   "/videos/buildingvid.mp4",
@@ -17,22 +10,20 @@ const videos = [
 ];
 
 const VideoCarousel = () => {
-  const swiperRef = useRef<SwiperType | null>(null);
-  const videoRefs = useRef<HTMLVideoElement[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
 
   /* --------------------------------------------
-     Detect desktop (prevents SSR issues)
+     Detect desktop
   --------------------------------------------- */
   useEffect(() => {
     setIsDesktop(window.innerWidth >= 768);
   }, []);
 
   /* --------------------------------------------
-     Auto-pause when carousel leaves viewport
+     Pause all videos when leaving viewport
   --------------------------------------------- */
   useEffect(() => {
     if (!containerRef.current) return;
@@ -40,7 +31,7 @@ const VideoCarousel = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
-          videoRefs.current.forEach((video) => video?.pause());
+          videoRefs.current.forEach((v) => v?.pause());
           setPlayingIndex(null);
         }
       },
@@ -52,93 +43,83 @@ const VideoCarousel = () => {
   }, []);
 
   /* --------------------------------------------
-     Handle video end → move to next slide
+     Scroll to next video when one ends (desktop)
   --------------------------------------------- */
   const handleVideoEnd = (index: number) => {
-    const swiper = swiperRef.current;
-    if (!swiper) return;
+    if (!isDesktop || !containerRef.current) return;
 
     const nextIndex = index === videos.length - 1 ? 0 : index + 1;
-    swiper.slideTo(nextIndex);
+    const nextVideo = videoRefs.current[nextIndex];
 
-    if (isDesktop) {
-      videoRefs.current[nextIndex]?.play();
-      setPlayingIndex(nextIndex);
-    }
+    nextVideo?.play();
+    setPlayingIndex(nextIndex);
+
+    containerRef.current.children[nextIndex]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+    });
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="
-        w-screen 
-        md:w-auto 
-        -mx-4 
-        md:mx-auto 
-        mt-8 
-        md:max-w-6xl
-      "
-    >
-      <Swiper
-        modules={[Navigation, Pagination]}
-        pagination={{ clickable: true }}
-        navigation
-        spaceBetween={16}
-        slidesPerView={1}
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
-        onSlideChange={() => {
-          videoRefs.current.forEach((video) => video?.pause());
-          setPlayingIndex(null);
-        }}
-        breakpoints={{
-          640: { slidesPerView: 1.2 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-        className="video-swiper"
+    <div className="mt-8">
+      <div
+        ref={containerRef}
+        className="
+          flex gap-4 overflow-x-auto scroll-smooth
+          snap-x snap-mandatory
+          px-4
+        "
       >
         {videos.map((video, index) => (
-          <SwiperSlide key={index}>
-            <div className="rounded-xl overflow-hidden shadow-lg bg-black">
-              <div className="relative">
-                <video
-                  ref={(el) => {
-                    if (el) videoRefs.current[index] = el;
-                  }}
-                  src={video}
-                  muted
-                  playsInline
-                  preload="metadata"
-                  controls={isDesktop}
-                  className="w-full h-[50vh] aspect-video object-cover"
-                  onPlay={() => setPlayingIndex(index)}
-                  onPause={() => setPlayingIndex(null)}
-                  onEnded={() => handleVideoEnd(index)}
-                />
+          <div
+            key={index}
+            className="
+              snap-center
+              flex-shrink-0
+              w-[90%]
+              sm:w-[70%]
+              md:w-[45%]
+              lg:w-[30%]
+            "
+          >
+            <div className="rounded-xl overflow-hidden bg-black shadow-lg relative">
+              <video
+                ref={(el) => {
+                  if (el) videoRefs.current[index] = el;
+                }}
+                src={video}
+                muted
+                playsInline
+                preload="metadata"
+                controls={isDesktop}
+                className="w-full h-[50vh] object-cover"
+                onPlay={() => setPlayingIndex(index)}
+                onPause={() => setPlayingIndex(null)}
+                onEnded={() => handleVideoEnd(index)}
+              />
 
-                {/* Mobile Tap-to-Play Overlay */}
-                {!isDesktop && playingIndex !== index && (
-                  <button
-                    onClick={() => {
-                      videoRefs.current[index]?.play();
-                      setPlayingIndex(index);
-                    }}
-                    className="
-                      absolute inset-0 
-                      flex items-center justify-center
-                      bg-black/40 text-white
-                      text-5xl
-                    "
-                    aria-label="Play video"
-                  >
-                    ▶
-                  </button>
-                )}
-              </div>
+              {/* Mobile Tap Overlay */}
+              {!isDesktop && playingIndex !== index && (
+                <button
+                  onClick={() => {
+                    videoRefs.current[index]?.play();
+                    setPlayingIndex(index);
+                  }}
+                  className="
+                    absolute inset-0
+                    flex items-center justify-center
+                    bg-black/40
+                    text-white text-5xl
+                  "
+                  aria-label="Play video"
+                >
+                  ▶
+                </button>
+              )}
             </div>
-          </SwiperSlide>
+          </div>
         ))}
-      </Swiper>
+      </div>
     </div>
   );
 };
