@@ -23,10 +23,11 @@ export default function FloatingButtons() {
           link: "/reach-us",
           icon: null,
         },
+        
         {
           label: "Call",
           color: "bg-green-600",
-          link: "tel:+2348121018756",
+          link: "tel:+2348120862357",
           icon: <FaPhoneAlt />,
         },
         {
