@@ -15,7 +15,7 @@ export interface Service {
 export const services: Service[] = [
   {
     title: "Construction Works",
-    description: "Professional building and infrastructure solutions swimming pools construction swervice steel fabrication and installation.",
+    description: "Professional building and infrastructure solutions swimming pools construction service steel fabrication and installation.",
     image: constimg,
   },
   {

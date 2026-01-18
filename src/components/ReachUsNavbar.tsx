@@ -30,7 +30,7 @@ const ReachUsNavbar: React.FC = () => {
           onClick={() => navigate("/")}
           className="cursor-pointer text-lg md:text-xl font-bold text-green-800"
         >
-          ROLLYNOR INTL GEMS
+          ROLLYMOR HTH GEMS
         </div>
 
         {/* BACK HOME */}

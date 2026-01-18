@@ -10,6 +10,7 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import ReachUsNavbar from "../components/ReachUsNavbar";
+import Footer from "../components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -114,12 +115,12 @@ const ReachUs: React.FC = () => {
         <div className="container mx-auto px-6 max-w-6xl">
           {/* HEADER */}
           <div className="text-center mb-16 reveal">
-            <h1 className="text-4xl md:text-5xl font-bold text-green-800">
-              How to Reach Us
-            </h1>
-            <p className="mt-4 text-gray-600 text-lg">
+            <h2 className="text-2xl md:text-3xl font-bold text-green-800">
+             Reach ROLLYMOR HTH GEMS HERE
+            </h2>
+            <h1 className="text-4xl md:text-5xl font-bold text-green-900 mt-4">
               We’re always available to respond.
-            </p>
+            </h1>
           </div>
 
           {/* QUICK ACTIONS */}
@@ -227,6 +228,7 @@ const ReachUs: React.FC = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 };
