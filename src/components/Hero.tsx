@@ -73,17 +73,19 @@ const Hero: React.FC = () => {
 
   <div className="mt-6 flex gap-4">
     <button
-      className="hero-btn bg-white text-green-800 px-6 py-3 rounded-lg border-4 border-black font-semibold"
+      className="hero-btn bg-white cursor-pointer text-green-800 px-6 py-3 rounded-lg border-4 border-black font-semibold"
       onMouseEnter={(e) => hoverScale(e.currentTarget)}
       onMouseLeave={(e) => hoverReset(e.currentTarget)}
+      onClick={() => window.location.href = '#services'}
     >
-      Request a Service
+      OUR SERVICES
     </button>
 
     <button
-      className="hero-btn border-2 border-white px-6 py-3 rounded-lg"
+      className="hero-btn border-2 cursor-pointer border-white px-6 py-3 rounded-lg"
       onMouseEnter={(e) => hoverScale(e.currentTarget)}
       onMouseLeave={(e) => hoverReset(e.currentTarget)}
+      onClick={() => window.location.href = '#contact'}
     >
       Contact Us
     </button>

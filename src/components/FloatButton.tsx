@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function FloatingButtons() {
   return (
@@ -16,60 +17,78 @@ export default function FloatingButtons() {
         ease: "easeInOut",
       }}
     >
-      {[
-        {
-          label: "Book Service",
-          color: "bg-red-600",
-          link: "/reach-us",
-          icon: null,
-        },
-        
-        {
-          label: "Call",
-          color: "bg-green-600",
-          link: "tel:+2348120862357",
-          icon: <FaPhoneAlt />,
-        },
-        {
-          label: "WhatsApp",
-          color: "bg-green-900",
-          link: "https://wa.me/2348120862357",
-          icon: <FaWhatsapp />,
-        },
-      ].map((btn) => (
-        <motion.a
-          key={btn.label}
-          href={btn.link}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-          animate={{ scale: [1, 1.04, 1] }}
-          transition={{
-            duration: 2.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className={`
-            ${btn.color}
+      {/* BOOK SERVICE → INTERNAL ROUTE */}
+      <motion.div
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        animate={{ scale: [1, 1.04, 1] }}
+        transition={{
+          duration: 2.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <Link
+          to="/reach-us"
+          className="
+            bg-red-600
             flex items-center justify-center gap-2
             text-white font-semibold shadow-lg
             border-2 border-white
             rounded-full md:rounded-lg
-
             w-12 h-12
             md:w-auto md:h-auto
             md:px-6 md:py-3
-          `}
-          aria-label={btn.label}
+          "
+          aria-label="Book Service"
         >
-          {/* Icon (always visible) */}
-          {btn.icon && <span className="text-lg">{btn.icon}</span>}
-
-          {/* Text label (desktop only) */}
           <span className="hidden md:inline whitespace-nowrap">
-            {btn.label}
+            Book Service
           </span>
-        </motion.a>
-      ))}
+        </Link>
+      </motion.div>
+
+      {/* CALL → EXTERNAL */}
+      <motion.a
+        href="tel:+2348120862357"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        className="
+          bg-green-600
+          flex items-center justify-center gap-2
+          text-white font-semibold shadow-lg
+          border-2 border-white
+          rounded-full md:rounded-lg
+          w-12 h-12
+          md:w-auto md:h-auto
+          md:px-6 md:py-3
+        "
+      >
+        <FaPhoneAlt className="text-lg" />
+        <span className="hidden md:inline">Call</span>
+      </motion.a>
+
+      {/* WHATSAPP → EXTERNAL */}
+      <motion.a
+        href="https://wa.me/2348120862357"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        className="
+          bg-green-900
+          flex items-center justify-center gap-2
+          text-white font-semibold shadow-lg
+          border-2 border-white
+          rounded-full md:rounded-lg
+          w-12 h-12
+          md:w-auto md:h-auto
+          md:px-6 md:py-3
+        "
+      >
+        <FaWhatsapp className="text-lg" />
+        <span className="hidden md:inline">WhatsApp</span>
+      </motion.a>
     </motion.div>
   );
 }

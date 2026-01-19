@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import logo from "../assets/rolly-logo.jpeg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -122,12 +123,17 @@ const Navbar: React.FC = () => {
     >
       <div className="px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <span
+        <div className="flex">
+          <img
+          className="w-10 h-10 rounded-full object-cover cursor-pointer"
+            src={logo} alt="logo" />
+          <span
           onClick={() => scrollToSection("#home")}
           className="cursor-pointer text-xl font-bold text-green-800"
         >
           ROLLYMOR HTH GEMS
         </span>
+        </div>
 
         {/* Desktop Links */}
         <ul className="hidden md:flex gap-6">
